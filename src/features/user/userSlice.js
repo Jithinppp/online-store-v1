@@ -5,6 +5,7 @@ const initialState = {
   currentUser: null,
   status: "idle",
   error: null,
+  userStatus: "",
 };
 
 export const checkUserLoggedIn = createAsyncThunk(
@@ -27,17 +28,23 @@ const userSlice = createSlice({
     builder
       .addCase(checkUserLoggedIn.pending, (state, action) => {
         state.status = "loading";
+        state.userStatus = "loading";
       })
       .addCase(checkUserLoggedIn.fulfilled, (state, action) => {
-        state.currentUser = {
-          email: action.payload.email,
-          uid: action.payload.uid,
-        };
-        state.status = "success";
+        if (action.payload) {
+          state.currentUser = {
+            email: action.payload.email,
+            uid: action.payload.uid,
+          };
+          state.status = "success";
+        } else {
+          state.currentUser = null;
+        }
       })
       .addCase(checkUserLoggedIn.rejected, (state, action) => {
-        state.error = action.payload;
+        // state.error = action.payload.auth.currentUser;
         state.status = "failed";
+        state.userStatus = action.payload;
       });
   },
 });
