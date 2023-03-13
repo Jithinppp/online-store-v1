@@ -17,10 +17,13 @@ import {
   selectCurrentUser,
   setCurrentUser,
 } from "../../features/user/userSlice";
+import { selectCartItems } from "../../features/cart/cartSlice";
 
 const Navigation = () => {
-  const currentUser = useSelector(selectCurrentUser);
   const dispatch = useDispatch();
+
+  const currentUser = useSelector(selectCurrentUser);
+  const cartItemsLength = useSelector(selectCartItems).length;
 
   const signOutHandler = () => {
     signOut(auth).then(() => dispatch(setCurrentUser(null)));
@@ -41,7 +44,7 @@ const Navigation = () => {
           {currentUser ? (
             <NavShoppingBag>
               <BsBag />
-              <span>20</span>
+              <span>{cartItemsLength}</span>
             </NavShoppingBag>
           ) : (
             ""

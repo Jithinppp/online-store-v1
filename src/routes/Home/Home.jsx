@@ -1,21 +1,30 @@
 import React from "react";
-import { HomeContainer } from "./home.style";
-// import SHOP_DATA from "../../SHOP_DATA";
-import HomeCategory from "../../components/HomeCategory/HomeCategory";
 import { useSelector } from "react-redux";
 import { selectProducts } from "../../features/products/productsSlice";
 
+// components
+import { HomeContainer } from "./home.style";
+import HomeCategory from "../../components/HomeCategory/HomeCategory";
+import Spinner from "../../components/spinner/Spinner";
+
 const Home = () => {
-  const shopData = useSelector(selectProducts);
+  const products = useSelector(selectProducts);
+
   return (
     <HomeContainer>
-      {shopData.map((category, idx) => (
-        <HomeCategory
-          title={category.title}
-          item={category.items[0]}
-          key={idx}
-        />
-      ))}
+      {!products ? (
+        <Spinner />
+      ) : (
+        <>
+          {products?.map((category, idx) => (
+            <HomeCategory
+              title={category.title}
+              item={category.items[0]}
+              key={idx}
+            />
+          ))}
+        </>
+      )}
     </HomeContainer>
   );
 };
