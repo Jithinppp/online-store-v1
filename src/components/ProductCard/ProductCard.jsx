@@ -15,7 +15,6 @@ const ProductCard = ({ productDetails }) => {
   const dispatch = useDispatch();
 
   const clickHandler = () => {
-    console.log(productDetails);
     dispatch(addToCart(productDetails));
   };
 

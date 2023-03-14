@@ -19,7 +19,7 @@ const persistConfig = {
   version: 1,
   storage,
   // if you do not want to persist this part of the state
-  blacklist: ["user", "cart"],
+  blacklist: ["user"],
 };
 
 // combine all reducers

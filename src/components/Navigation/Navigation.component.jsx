@@ -1,5 +1,5 @@
 import React from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import { signOut } from "firebase/auth";
 import { useDispatch, useSelector } from "react-redux";
 import { auth } from "../../utils/firebase.utils";
@@ -21,6 +21,7 @@ import { selectCartItems } from "../../features/cart/cartSlice";
 
 const Navigation = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const currentUser = useSelector(selectCurrentUser);
   const cartItemsLength = useSelector(selectCartItems).length;
@@ -41,14 +42,10 @@ const Navigation = () => {
               Sign out <mark>{currentUser.email}</mark>
             </NavSignOutButton>
           )}
-          {currentUser ? (
-            <NavShoppingBag>
-              <BsBag />
-              <span>{cartItemsLength}</span>
-            </NavShoppingBag>
-          ) : (
-            ""
-          )}
+          <NavShoppingBag onClick={() => navigate("/checkout")}>
+            <BsBag />
+            <span>{cartItemsLength}</span>
+          </NavShoppingBag>
         </NavItems>
       </NavigationContainer>
       <main style={{ padding: "0 10px" }}>
