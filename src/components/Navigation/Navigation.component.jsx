@@ -18,6 +18,7 @@ import {
   setCurrentUser,
 } from "../../features/user/userSlice";
 import { selectCartItems } from "../../features/cart/cartSlice";
+import { ToastContainer } from "react-toastify";
 
 const Navigation = () => {
   const dispatch = useDispatch();
@@ -51,6 +52,7 @@ const Navigation = () => {
       <main style={{ padding: "0 10px" }}>
         <Outlet />
       </main>
+      <ToastContainer />
     </>
   );
 };

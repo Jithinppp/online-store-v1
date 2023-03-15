@@ -1,4 +1,7 @@
 import React from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
 import {
   CardElementContainer,
   CheckoutButton,
@@ -6,8 +9,11 @@ import {
 } from "./PaymentForm.style";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import axios from "axios";
+import { clearCart } from "../../features/cart/cartSlice";
 
 const PaymentForm = ({ totalAmount }) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const stripe = useStripe();
   const elements = useElements();
 
@@ -17,9 +23,12 @@ const PaymentForm = ({ totalAmount }) => {
     if (!stripe || !elements) {
       return;
     }
-    const response = await axios.post("http://localhost:5000/create-payment", {
-      amount: totalAmount * 100,
-    });
+    const response = await axios.post(
+      `${process.env.REACT_APP_APP_SERVER_URL}/create-payment`,
+      {
+        amount: totalAmount * 100,
+      }
+    );
     const { client_secret } = response.data.paymentIntent;
     const paymentResult = await stripe.confirmCardPayment(client_secret, {
       payment_method: {
@@ -27,10 +36,12 @@ const PaymentForm = ({ totalAmount }) => {
       },
     });
     if (paymentResult.error) {
-      alert("error while payment");
+      toast.error("can't make payment");
     } else {
       if (paymentResult.paymentIntent.status === "succeeded") {
-        alert("payment successful ");
+        toast.success("payment successful");
+        navigate("/");
+        dispatch(clearCart());
       }
     }
   };

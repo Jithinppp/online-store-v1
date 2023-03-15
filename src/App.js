@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
 import Navigation from "./components/Navigation/Navigation.component";
+// import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 // components
 import Home from "./routes/Home/Home";
@@ -37,6 +39,7 @@ function App() {
         <Route path="/checkout" element={<Checkout />} />
         <Route path="/:categoryName" element={<Category />} />
       </Route>
+      {/* <ToastContainer /> */}
     </Routes>
   );
 }

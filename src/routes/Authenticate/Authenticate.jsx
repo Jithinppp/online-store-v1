@@ -25,6 +25,7 @@ import {
   PopupSignInButton,
 } from "./authenticate.style";
 import { FcGoogle } from "react-icons/fc";
+import { toast } from "react-toastify";
 
 const Authenticate = () => {
   const [email, setEmail] = useState("");
@@ -34,10 +35,13 @@ const Authenticate = () => {
   const dispatch = useDispatch();
   const currentUser = useSelector(selectCurrentUser);
 
+  const toastSign = () => toast.success("authentication successfull");
+
   const signUpHandler = (e) => {
     e.preventDefault();
     signUpUserWithEmailAndPassword(email, password).then((val) => {
       dispatch(setCurrentUser({ email: val.email, uid: val.uid }));
+      toastSign();
       navigate("/");
     });
   };
@@ -46,6 +50,7 @@ const Authenticate = () => {
     e.preventDefault();
     signInUserWithEmailAndPassword(email, password).then((val) => {
       dispatch(setCurrentUser({ email: val.email, uid: val.uid }));
+      toastSign();
       navigate("/");
     });
   };
@@ -53,6 +58,8 @@ const Authenticate = () => {
   const googlePopupSignInHandler = () => {
     googlePopupSignIn().then((val) => {
       dispatch(setCurrentUser({ email: val.user.email, uid: val.user.uid }));
+      toastSign();
+
       navigate("/");
     });
   };
