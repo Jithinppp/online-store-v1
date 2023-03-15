@@ -1,4 +1,3 @@
-import { signInWithPopup } from "firebase/auth";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -59,7 +58,6 @@ const Authenticate = () => {
     googlePopupSignIn().then((val) => {
       dispatch(setCurrentUser({ email: val.user.email, uid: val.user.uid }));
       toastSign();
-
       navigate("/");
     });
   };
