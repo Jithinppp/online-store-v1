@@ -39,7 +39,7 @@ const Navigation = () => {
             <NavItem to={"/authenticate"}>Login</NavItem>
           ) : (
             <NavSignOutButton onClick={signOutHandler}>
-              Sign out <mark>{currentUser.email}</mark>
+              Sign out
             </NavSignOutButton>
           )}
           <NavShoppingBag onClick={() => navigate("/checkout")}>

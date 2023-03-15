@@ -31,7 +31,7 @@ const CheckoutItem = ({ checkoutItem }) => {
           <CheckoutItemName>{checkoutItem.name}</CheckoutItemName>
           <CheckoutItemPrice>${checkoutItem.price}</CheckoutItemPrice>
           <CheckoutItemQtyContainer>
-            <CheckoutItemQtyText>Quantity</CheckoutItemQtyText>
+            <CheckoutItemQtyText>Qty</CheckoutItemQtyText>
             <CheckoutItemDecrementQty
               onClick={() => dispatch(decrementCartItem(checkoutItem))}
             >

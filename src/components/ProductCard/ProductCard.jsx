@@ -24,7 +24,7 @@ const ProductCard = ({ productDetails }) => {
       <ProductCardSubContainer>
         <ProductCardName>{productDetails.name}</ProductCardName>
         <ProductCardGroup>
-          <ProductCardPrice>{productDetails.price}$</ProductCardPrice>
+          <ProductCardPrice>{productDetails.price}₹</ProductCardPrice>
           <ProductCardButton onClick={clickHandler}>
             Add to cart
           </ProductCardButton>

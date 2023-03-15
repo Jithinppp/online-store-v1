@@ -7,10 +7,11 @@ export const CheckoutItemContainer = styled.div`
   margin: 5px 0;
   border: 1px solid #3334;
   border-radius: 4px;
+  height: 110px;
 `;
 export const CheckoutItemImage = styled.img`
   height: auto;
-  width: 80px;
+  width: 100px;
   object-fit: cover;
   border-radius: 2px;
 `;
@@ -31,7 +32,7 @@ export const CheckoutItemQty = styled.span`
 `;
 export const CheckoutItemQtyText = styled.span`
   margin-right: 5px;
-  font-weight: 300;
+  font-weight: 400;
   letter-spacing: -1px;
   font-size: 0.9rem;
 `;
