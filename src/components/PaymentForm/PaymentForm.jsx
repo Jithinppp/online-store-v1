@@ -24,7 +24,7 @@ const PaymentForm = ({ totalAmount }) => {
       return;
     }
     const response = await axios.post(
-      `${process.env.REACT_APP_APP_SERVER_URL}/create-payment`,
+      `https://online-store-server-psi.vercel.app/create-payment`,
       {
         amount: totalAmount * 100,
       }
