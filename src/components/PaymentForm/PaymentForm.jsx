@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
@@ -12,6 +12,8 @@ import axios from "axios";
 import { clearCart } from "../../features/cart/cartSlice";
 
 const PaymentForm = ({ totalAmount }) => {
+  const [isDisabled, setIsDisabled] = useState(false);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const stripe = useStripe();
@@ -19,12 +21,13 @@ const PaymentForm = ({ totalAmount }) => {
 
   const paymentHandler = async (e) => {
     e.preventDefault();
+    setIsDisabled(true);
 
     if (!stripe || !elements) {
       return;
     }
     const response = await axios.post(
-      `https://online-store-server-psi.vercel.app/create-payment`,
+      `${process.env.REACT_APP_APP_SERVER_URL}/create-payment`,
       {
         amount: totalAmount * 100,
       }
@@ -35,6 +38,7 @@ const PaymentForm = ({ totalAmount }) => {
         card: elements.getElement(CardElement),
       },
     });
+    setIsDisabled(false);
     if (paymentResult.error) {
       toast.error("can't make payment");
     } else {
@@ -51,7 +55,7 @@ const PaymentForm = ({ totalAmount }) => {
       <CardElementContainer>
         <CardElement />
       </CardElementContainer>
-      <CheckoutButton>Checkout</CheckoutButton>
+      <CheckoutButton disabled={isDisabled}>Checkout</CheckoutButton>
     </PaymentFormContainer>
   );
 };

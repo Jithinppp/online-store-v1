@@ -26,30 +26,36 @@ const Checkout = () => {
     dispatch(calculateTotal());
   }, [cartItems, dispatch]);
 
+  console.log(cartItems, cartItems.length);
+
+  if (cartItems.length > 0 && currentUser) {
+    console.log("there is cart and payment");
+    return (
+      <CheckoutContainer>
+        <div>
+          <CheckoutTitle>My bag</CheckoutTitle>
+        </div>
+
+        {cartItems.map((item) => (
+          <CheckoutItem key={item.id} checkoutItem={item} />
+        ))}
+        <CheckoutTotalTitle>
+          Total
+          <CheckoutTotalAmount>₹{totalAmount}</CheckoutTotalAmount>
+        </CheckoutTotalTitle>
+        <PaymentForm totalAmount={totalAmount} />
+      </CheckoutContainer>
+    );
+  }
+
   return (
     <CheckoutContainer>
-      <div>
-        <CheckoutTitle>My bag</CheckoutTitle>
-      </div>
-      {cartItems.length === 0 ? (
-        <p>Your cart is empty</p>
-      ) : (
-        <>
-          {cartItems.map((item) => (
-            <CheckoutItem key={item.id} checkoutItem={item} />
-          ))}
-        </>
-      )}
-      <CheckoutTotalTitle>
-        Total
-        <CheckoutTotalAmount>₹{totalAmount}</CheckoutTotalAmount>
-      </CheckoutTotalTitle>
       {!currentUser ? (
         <p>
           Login to checkout items <Link to={"/authenticate"}>authenticate</Link>{" "}
         </p>
       ) : (
-        <PaymentForm totalAmount={totalAmount} />
+        <p>your cart is empty</p>
       )}
     </CheckoutContainer>
   );
